@@ -119,11 +119,31 @@ class AcquireCard(ActionCard):
             acquire_spices: SpiceSet, spices which are acquired by using this card.
         """
         super(AcquireCard, self).__init__()
-        self.acquire = acquire_spices
+        self.acquire_spices = acquire_spices
 
     def acquire(self, spices):
         """Use this card to gain spices"""
-        return spices + self.acquire
+        return spices + self.acquire_spices
+
+
+class ScoreCard:
+    def __init__(self, spice_cost, points):
+        """
+
+        Args:
+            spice_cost: SpiceSet, amount of spice the must be paid to claim this card
+            points:
+        """
+        self._spice_cost = spice_cost
+        self._points = points
+
+    @property
+    def cost(self):
+        return self._spice_cost
+
+    @property
+    def points(self):
+        return self._points
 
 
 ACTION_DECK = [
@@ -174,5 +194,44 @@ ACTION_DECK = [
     TradeCard(spice.SpiceSet(5, 0, 0, 0), spice.SpiceSet(0, 0, 3, 0)),
 
     # Upgrade Card
-    UpgradeCard(3)
+    UpgradeCard(3),
+]
+
+SCORE_DECK = [
+    ScoreCard(spice.SpiceSet(2, 2, 0, 0), 6),
+    ScoreCard(spice.SpiceSet(3, 2, 0, 0), 7),
+    ScoreCard(spice.SpiceSet(0, 4, 0, 0), 8),
+    ScoreCard(spice.SpiceSet(2, 0, 2, 0), 8),
+    ScoreCard(spice.SpiceSet(2, 3, 0, 0), 8),
+    ScoreCard(spice.SpiceSet(3, 0, 2, 0), 9),
+    ScoreCard(spice.SpiceSet(0, 2, 2, 0), 10),
+    ScoreCard(spice.SpiceSet(0, 5, 0, 0), 10),
+    ScoreCard(spice.SpiceSet(2, 0, 0, 2), 10),
+    ScoreCard(spice.SpiceSet(2, 0, 3, 0), 11),
+    ScoreCard(spice.SpiceSet(3, 0, 0, 2), 11),
+    ScoreCard(spice.SpiceSet(0, 0, 4, 0), 12),
+    ScoreCard(spice.SpiceSet(0, 2, 0, 2), 12),
+    ScoreCard(spice.SpiceSet(0, 3, 2, 0), 12),
+    ScoreCard(spice.SpiceSet(0, 2, 3, 0), 13),
+    ScoreCard(spice.SpiceSet(0, 0, 2, 2), 14),
+    ScoreCard(spice.SpiceSet(0, 3, 0, 2), 14),
+    ScoreCard(spice.SpiceSet(2, 0, 0, 3), 14),
+    ScoreCard(spice.SpiceSet(0, 0, 5, 0), 15),
+    ScoreCard(spice.SpiceSet(0, 0, 0, 4), 16),
+    ScoreCard(spice.SpiceSet(0, 2, 0, 3), 16),
+    ScoreCard(spice.SpiceSet(0, 0, 3, 2), 17),
+    ScoreCard(spice.SpiceSet(0, 0, 2, 3), 18),
+    ScoreCard(spice.SpiceSet(0, 0, 0, 5), 20),
+    ScoreCard(spice.SpiceSet(2, 1, 0, 1), 9),
+    ScoreCard(spice.SpiceSet(0, 2, 1, 1), 12),
+    ScoreCard(spice.SpiceSet(1, 0, 2, 1), 12),
+    ScoreCard(spice.SpiceSet(2, 2, 2, 0), 13),
+    ScoreCard(spice.SpiceSet(2, 2, 0, 2), 15),
+    ScoreCard(spice.SpiceSet(2, 0, 2, 2), 17),
+    ScoreCard(spice.SpiceSet(0, 2, 2, 2), 19),
+    ScoreCard(spice.SpiceSet(1, 1, 1, 1), 12),
+    ScoreCard(spice.SpiceSet(3, 1, 1, 1), 14),
+    ScoreCard(spice.SpiceSet(1, 3, 1, 1), 16),
+    ScoreCard(spice.SpiceSet(1, 1, 3, 1), 18),
+    ScoreCard(spice.SpiceSet(1, 1, 1, 3), 20),
 ]
