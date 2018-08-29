@@ -47,7 +47,7 @@ class SpiceSet(namedtuple('SpiceBase', ('turmeric', 'saffron', 'cardamom', 'cinn
         """
 
         def colored_square(color):
-            return color + chr(0x25A0) + attr('reset')
+            return color + chr(0x25A3) + attr('reset')
 
-        return ' '.join(reversed(
+        return ''.join(reversed(
             list(chain.from_iterable(repeat(colored_square(clr), qty) for qty, clr in zip(self, self._colors)))))
