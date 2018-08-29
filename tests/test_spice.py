@@ -1,4 +1,4 @@
-import spice
+from game import spice
 
 
 def test_spiceset():

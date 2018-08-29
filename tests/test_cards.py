@@ -1,4 +1,4 @@
-import cards
+from game import cards
 
 
 def test_deck():
