@@ -24,6 +24,15 @@ class ActionCard:
     def __init__(self):
         pass
 
+    @abc.abstractmethod
+    def __str__(self):
+        """
+
+        Returns: visual representation of card (ASCII art-style)
+        NB: all TradeCards have <= 5 cubes of input and output, all ScoreCards have <= 6 cubes of cost
+        """
+        pass
+
 
 class TradeCard(ActionCard):
     # Might move this logic to Player.
