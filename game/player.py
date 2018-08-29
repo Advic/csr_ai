@@ -1,4 +1,4 @@
-from spice import SpiceSet
+from game.spice import SpiceSet
 
 
 class Caravan(SpiceSet):

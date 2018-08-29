@@ -1,7 +1,7 @@
 from collections import Iterable
 from random import shuffle
 
-import cards
+from game import cards
 
 
 class Game:

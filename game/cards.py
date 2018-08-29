@@ -2,7 +2,7 @@
 
 import abc
 
-import spice
+from game import spice
 
 
 class InvalidCardAction(Exception):
