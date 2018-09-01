@@ -1,6 +1,7 @@
 """Module for trader cards"""
 
 import abc
+from textwrap import dedent
 
 from game import spice
 
@@ -29,7 +30,8 @@ class ActionCard:
         """
 
         Returns: visual representation of card (ASCII art-style)
-        NB: all TradeCards have <= 5 cubes of input and output, all ScoreCards have <= 6 cubes of cost
+        NB: all TradeCards have <= 5 cubes of input and output, all ScoreCards have <= 6 cubes of cost, so I'm
+            arbitrarily defining card size as 9 characters wide and 7 characters tall
         """
         pass
 
@@ -49,6 +51,22 @@ class TradeCard(ActionCard):
         super(TradeCard, self).__init__()
         self.input = input_spices
         self.output = output_spices
+
+    # def __str__(self):
+    #     """
+    #
+    #     Returns:
+    #
+    #     """
+    #     return dedent("""\
+    #         ╔═══════╗
+    #         ║       ║
+    #         ║       ║
+    #         ║   ↦   ║
+    #         ║       ║
+    #         ║       ║
+    #         ╚═══════╝
+    #     """)
 
     def trade(self, spices):
         """
