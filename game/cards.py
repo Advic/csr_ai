@@ -175,7 +175,7 @@ class ScoreCard:
         return self._points
 
 
-ACTION_DECK = [
+TRADER_DECK = [
     # Acquire Cards
     AcquireCard(spice.SpiceSet(0, 0, 0, 1)),
     AcquireCard(spice.SpiceSet(0, 0, 1, 0)),
