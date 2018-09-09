@@ -8,6 +8,10 @@ venv/bin/activate: requirements.txt
 test: venv
 	. venv/bin/activate; python -m pytest -sv
 
+.PHONY: game
+game: 
+	. venv/bin/activate; python -m game.main
+
 clean:
 	rm -rf venv
 	find -iname "*.pyc" -delete
