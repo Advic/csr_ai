@@ -12,8 +12,8 @@ class Deck(metaclass=abc.ABCMeta):
         self._deck = None
 
     @abc.abstractclassmethod
-    def claim(self, n):
-        """Claim face-up card number N (0-indexed)"""
+    def claim(self, payment):
+        """Claim face-up card number by a payment of spice"""
         pass
 
 
