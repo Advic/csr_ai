@@ -1,6 +1,7 @@
 import abc
 from random import shuffle
 
+from . import coin
 from . import exceptions
 from . import spice
 from .card import ScoreCard, AcquireCard, TradeCard, UpgradeCard
@@ -115,14 +116,14 @@ class ActionArea(Deck):
             raise exceptions.InvalidPlayerAction("Payment SpiceSets must all have a value of 1")
 
         # Add payments to faceup cards
-        for faceup, spiceset in zip(self._faceup, payment):
+        for faceup, spiceset in zip(self.faceup, payment):
             faceup.spiceset += spiceset
 
-        claimed_card = self._faceup[len(payment)]
-        del self._faceup[len(payment)]
+        claimed_card = self.faceup[len(payment)]
+        del self.faceup[len(payment)]
 
         try:
-            self._faceup.append(FaceUpActionCard(self._deck.pop()))
+            self.faceup.append(FaceUpActionCard(self.deck.pop()))
         except IndexError:
             # Raised if the deck is cards
             pass
@@ -193,7 +194,28 @@ class ScoreArea(Deck):
             exceptions.InvalidPlayerAction if no ScoreCard matching that exact spice amount is face up
 
         Returns:
-            scorecard,  The claimed ScoreCard
+            list of gained objects - claimed ScoreCard, and maybe a coin. Both have .points() attributes
 
         """
-        pass
+        # todo: technically this is a poor way to compare but scoring_area is 6 elements so whatever
+        matches = [(i, card) for i, card in enumerate(self.faceup) if card.cost == spiceset]
+        if len(matches) == 0:
+            raise exceptions.InvalidPlayerAction("No matching spiceset could be found")
+        if len(matches) > 1:
+            # This should be impossible
+            raise exceptions.InvalidPlayerAction("More than one matching spiceset could be found")
+        index, scored_card = matches[0]
+        del self.faceup[index]
+        try:
+            self.faceup.append(self.deck.pop())
+        except IndexError:
+            # Raised if the deck is cards
+            pass
+
+        if index == 0 and self.n_gold:
+            self.n_gold -= 1
+            return [scored_card, coin.gold]
+        if index == 1 and self.n_silver:
+            self.n_silver -= 1
+            return [scored_card, coin.silver]
+        return scored_card
