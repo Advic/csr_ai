@@ -1,6 +1,6 @@
 import os
 
-from game import deck
+from . import deck
 
 
 class Game:
@@ -38,3 +38,7 @@ class Game:
 
     def get_input(self):
         return input('Enter your command: ')
+
+
+class TTYGame(Game):
+    pass

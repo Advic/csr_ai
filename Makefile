@@ -8,9 +8,14 @@ venv/bin/activate: requirements.txt
 test: venv
 	. venv/bin/activate; python -m pytest -sv
 
+.PHONY: ttygame
+ttygame:
+	. venv/bin/activate; python -m main $(NPLAYERS) --nocurses
+
 .PHONY: game
-game: 
-	. venv/bin/activate; python -m main
+game:
+	. venv/bin/activate; python -m main $(NPLAYERS)
+
 
 clean:
 	rm -rf venv
