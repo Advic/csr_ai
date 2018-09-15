@@ -114,7 +114,12 @@ class ActionArea(Deck):
 
         claimed_card = self._faceup[len(payment)]
         del self._faceup[len(payment)]
-        self._faceup.append(FaceUpActionCard(self._deck.pop()))
+
+        try:
+            self._faceup.append(FaceUpActionCard(self._deck.pop()))
+        except IndexError:
+            # Raised if the deck is cards
+            pass
         return claimed_card
 
 
