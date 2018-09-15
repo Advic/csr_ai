@@ -1,5 +1,5 @@
 from game import spice
-from game.cards import ScoreCard, AcquireCard, TradeCard, UpgradeCard
+from game.card import ScoreCard, AcquireCard, TradeCard, UpgradeCard
 
 
 class TraderDeck:

@@ -5,10 +5,8 @@ import os
 from collections import Iterable
 from random import shuffle
 
-import game.deck
-from . import deck
-from . import cards
 from . import colors
+from . import deck
 
 
 class Game:
@@ -30,7 +28,7 @@ class Game:
         self.trader_deck = deck.TradeDeck()
 
         # todo: gold and silver coins for 0th and 1st element of scoring_area
-        self.score_deck = game.deck.SCORE_DECK
+        self.score_deck = deck.SCORE_DECK
         shuffle(self.score_deck)
         self.scoring_area = [self.score_deck.pop() for _ in range(5)]
 
@@ -83,7 +81,7 @@ class CursesGame(Game):
         self.win.clear()
 
         # Initialize colors corresponding to spice colors
-        for color, pair in colors.COLOR_PAIR_DICT.iteritems()
+        for color, pair in colors.COLOR_PAIR_DICT.iteritems():
             curses.init_pair(pair, color, colors.BACKGROUND_COLOR)
 
     def __del__(self):
