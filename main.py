@@ -20,11 +20,11 @@ if __name__ == "__main__":
         args = parse_cl_args()
         if args.nocurses:
             # Start a game with an ugly TTY interface that will render without other fancy tools
-            print("Starting a %d - player TTYGame" % args.nplayers)
+            print("Starting a %d-player TTYGame" % args.nplayers)
             TTYGame(0, args.nplayers).loop()
         else:
             # Start a game with a nice, curses UI
-            print("Starting a %d - player CursesGame" % args.nplayers)
+            print("Starting a %d-player CursesGame" % args.nplayers)
             CursesGame(0, args.nplayers).loop()
     except Exception:
         print(traceback.format_exc())
