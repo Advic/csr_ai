@@ -130,9 +130,14 @@ class ActionArea(Deck):
 
 
 class ScoreArea(Deck):
+    """Central area for claimable scoring cards"""
     FACEUP_SCORE_SIZE = 5
 
-    def __init__(self):
+    def __init__(self, nplayers):
+        """
+        Args:
+            nplayers: int, number of players playing the game, to initialize coins
+        """
         super().__init__()
         self._deck = [
             ScoreCard(spice.SpiceSet(2, 2, 0, 0), 6),
@@ -174,3 +179,21 @@ class ScoreArea(Deck):
         ]
         shuffle(self.deck)
         self.scoring_area = [self.deck.pop() for _ in range(self.FACEUP_SCORE_SIZE)]
+        self.n_gold = 2 * nplayers
+        self.n_silver = 2 * nplayers
+
+    def claim(self, spiceset):
+        """
+        Claim a card with an exact change payment of spice
+
+        Args:
+            spiceset: SpiceSet, exact amount of spice needed to claim the score card
+
+        Raises:
+            exceptions.InvalidPlayerAction if no ScoreCard matching that exact spice amount is face up
+
+        Returns:
+            scorecard,  The claimed ScoreCard
+
+        """
+        pass
