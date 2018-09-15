@@ -1,6 +1,7 @@
 import unittest
 
 from game import spice
+from copy import deepcopy
 
 
 class TestSpiceSet(unittest.TestCase):
@@ -26,3 +27,17 @@ class TestSpiceSet(unittest.TestCase):
     def test_empty_spiceset_raises(self):
         with self.assertRaises(TypeError):
             spice.SpiceSet()
+
+    def test_spiceset_equality(self):
+        """Check that SpiceSet objects are compared by value, not by reference"""
+        a = spice.SpiceSet(1, 3, 1, 2)
+        b = spice.SpiceSet(1, 3, 1, 2)
+        assert a is not b
+        assert a == b
+
+    def test_spiceset_equality_deepcopy(self):
+        """Check that SpiceSet objects are compared by value, not by reference, using copy.deepcopy"""
+        a = spice.SpiceSet(1, 3, 1, 2)
+        b = deepcopy(a)
+        assert a is not b
+        assert a == b
