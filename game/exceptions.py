@@ -2,5 +2,5 @@
 
 
 class InvalidPlayerAction(Exception):
-    """Raised when an illegal action has been taken""
+    """Raised when an illegal action has been taken"""
     pass
