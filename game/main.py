@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import os
 import curses
+import os
 from collections import Iterable
 from random import shuffle
 
+import game.deck
+from . import deck
 from . import cards
 from . import colors
 
@@ -25,12 +27,10 @@ class Game:
         elif isinstance(players, int):
             pass
 
-        self.trader_deck = cards.TRADER_DECK
-        shuffle(self.trader_deck)
-        self.trader_market = [self.trader_deck.pop() for _ in range(6)]
+        self.trader_deck = deck.TradeDeck()
 
         # todo: gold and silver coins for 0th and 1st element of scoring_area
-        self.score_deck = cards.SCORE_DECK
+        self.score_deck = game.deck.SCORE_DECK
         shuffle(self.score_deck)
         self.scoring_area = [self.score_deck.pop() for _ in range(5)]
 
@@ -55,6 +55,11 @@ class Game:
 class CursesGame(Game):
     WINDOW_HEIGHT = 51
     WINDOW_WIDTH = 251
+
+    TRADER_MARKET_X = 1
+    TRADER_MARKET_Y = 1
+    SCORING_AREA_X = 1
+    SCORING_AREA_Y = 1
 
     def __init__(self, id, players=None, shuffle_players=True):
         super().__init__(id, players, shuffle_players)
@@ -95,6 +100,11 @@ class CursesGame(Game):
         ret = self.win.getstr()
         self.win.deleteln()
         return ret
+
+    def render_market(self):
+        """Render the central "Marketplace" area (i.e. the draftable face-up cards)"""
+        for i_trade, trade_card in enumerate(self.trader_market):
+            self.win.addstr()
 
     def render(self):
         self.win.clear()
