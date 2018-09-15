@@ -28,9 +28,7 @@ class Game:
         self.trader_deck = deck.TradeDeck()
 
         # todo: gold and silver coins for 0th and 1st element of scoring_area
-        self.score_deck = deck.SCORE_DECK
-        shuffle(self.score_deck)
-        self.scoring_area = [self.score_deck.pop() for _ in range(5)]
+        self.score_deck = deck.ScoreDeck()
 
     def loop(self):
         """

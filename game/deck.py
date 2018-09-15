@@ -2,10 +2,16 @@ from game import spice
 from game.card import ScoreCard, AcquireCard, TradeCard, UpgradeCard
 
 
-class TraderDeck:
+class TradeDeck:
     def __init__(self):
         shuffle(self.trader_deck)
         self.trader_market = [self.trader_deck.pop() for _ in range(6)]
+
+
+class ScoreDeck:
+    def __init__(self):
+        shuffle(self.score_deck)
+        self.scoring_area = [self.score_deck.pop() for _ in range(5)]
 
 
 SCORE_DECK = [
