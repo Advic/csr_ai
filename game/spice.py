@@ -43,10 +43,10 @@ class PlayerInventory(SpiceSet):
         return super(SpiceSet, self).__add__(other)
 
     def render(self, win, x, y):
-        win.add_str("╔═══════════╗", x, y)
-        win.add_str("║ X X X X X ║", x, y + 1)
-        win.add_str("║ X X X X X ║", x, y + 2)
-        win.add_str("╚═══════════╝", x, y + 3)
+        win.addstr("╔═══════════╗", x, y)
+        win.addstr("║ X X X X X ║", x, y + 1)
+        win.addstr("║ X X X X X ║", x, y + 2)
+        win.addstr("╚═══════════╝", x, y + 3)
         # todo: be careful, this only renders 10 spices
 
         xs = chain([2, 4, 6, 8, 10])
