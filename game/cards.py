@@ -3,7 +3,6 @@
 """Module for trader cards"""
 
 import abc
-from textwrap import dedent
 
 from game import spice
 
