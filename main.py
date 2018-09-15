@@ -113,5 +113,5 @@ if __name__ == "__main__":
     try:
         game = CursesGame(0, 4)
         game.loop()
-    except:
+    except Exception:
         print(traceback.format_exc())
