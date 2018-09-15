@@ -4,8 +4,8 @@ import curses
 import os
 from collections import Iterable
 
-from . import colors
-from . import deck
+from game import colors
+from game import deck
 
 
 class Game:
