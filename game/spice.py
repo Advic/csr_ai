@@ -1,24 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from collections import namedtuple
-from enum import Enum
 from itertools import chain, repeat
 
-from colored import fg, attr
-
-
-class Spice(Enum):
-    # todo: find a usage for this or remove
-    TURMERIC = 1  # Yellow
-    SAFFRON = 2  # Red
-    CARDAMOM = 3  # Green
-    CINNAMON = 4  # Brown
+SPICE_CHARACTER = chr(0x25A3)
 
 
 class SpiceSet(namedtuple('SpiceBase', ('turmeric', 'saffron', 'cardamom', 'cinnamon'))):
-    # Colors for the 4 spices, in the same order as the namedtuple definition.
-    # turmeric: yellow_1, saffron: red, cardamom: chartreuse_2b, cinnamon: dark_orange_3a
-    _colors = [fg('yellow_1'), fg('red'), fg('chartreuse_2b'), fg('dark_orange_3a')]
 
     def __init__(self, *args, **kwargs):
         super(SpiceSet, self).__init__(**kwargs)
@@ -41,15 +29,27 @@ class SpiceSet(namedtuple('SpiceBase', ('turmeric', 'saffron', 'cardamom', 'cinn
     def size(self):
         return self.turmeric + self.saffron + self.cardamom + self.cinnamon
 
+    def to_curses(self):
+        """Return a string of curses pairs representing this SpiceSet ("""
+        return list(reversed(list(chain.from_iterable(repeat(clr, qty) for clr, qty in enumerate(self, start=1)))))
+
+
+class PlayerInventory(SpiceSet):
     def __str__(self):
-        """
+        pass
 
-        Returns: unicode string with ANSI color code, colored as the actual board game version is made
+    def __add__(self, other):
+        # todo: add check for what happens if self + other > 10? Or do this no the input validation side?
+        return super(SpiceSet, self).__add__(other)
 
-        """
+    def render(self, win, x, y):
+        win.add_str("╔═══════════╗", x, y)
+        win.add_str("║ X X X X X ║", x, y + 1)
+        win.add_str("║ X X X X X ║", x, y + 2)
+        win.add_str("╚═══════════╝", x, y + 3)
+        # todo: be careful, this only renders 10 spices
 
-        def colored_square(color):
-            return color + chr(0x25A3) + attr('reset')
-
-        return ''.join(reversed(
-            list(chain.from_iterable(repeat(colored_square(clr), qty) for qty, clr in zip(self, self._colors)))))
+        xs = chain([2, 4, 6, 8, 10])
+        ys = chain.from_iterable(repeat(x, 5) for x in [1, 2])
+        for color, x, y in zip(self.to_curses(), xs, ys):
+            win.add_str(SPICE_CHARACTER, x, y, color)

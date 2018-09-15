@@ -9,13 +9,12 @@ def test_spiceset():
     assert ss.cinnamon == 4
 
 
-def test_spiceset_str():
-    assert str(spice.SpiceSet(0, 0, 0, 1)) == "\x1b[38;5;130m\u25a3\x1b[0m"  # Cinnamon: brown square
-    assert str(spice.SpiceSet(0, 0, 1, 0)) == "\x1b[38;5;112m\u25a3\x1b[0m"  # Cardamom: green square
-    assert str(spice.SpiceSet(0, 1, 0, 0)) == "\x1b[38;5;1m\u25a3\x1b[0m"  # Saffron: red square
-    assert str(spice.SpiceSet(1, 0, 0, 0)) == "\x1b[38;5;226m\u25a3\x1b[0m"  # Turmeric: yellow square
-    y_g_b = "\x1b[38;5;130m\u25a3\x1b[0m\x1b[38;5;112m\u25a3\x1b[0m\x1b[38;5;226m\u25a3\x1b[0m"
-    assert str(spice.SpiceSet(1, 0, 1, 1)) == y_g_b
+def test_spiceset_to_curses():
+    assert spice.SpiceSet(0, 0, 0, 1).to_curses() == [4]
+    assert spice.SpiceSet(0, 0, 1, 0).to_curses() == [3]
+    assert spice.SpiceSet(0, 1, 0, 0).to_curses() == [2]
+    assert spice.SpiceSet(1, 0, 0, 0).to_curses() == [1]
+    assert spice.SpiceSet(1, 0, 1, 1).to_curses() == [4, 3, 1]
 
 
 def test_spiceset_sum():

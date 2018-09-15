@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
 import curses
 from collections import Iterable
 from random import shuffle
 
-from game import cards
+from . import cards
+from . import colors
 
 
 class Game:
-    WINDOW_HEIGHT = 51
-    WINDOW_WIDTH = 251
-
     def __init__(self, id, players=None, shuffle_players=True):
         """
         WIP
@@ -35,6 +34,30 @@ class Game:
         shuffle(self.score_deck)
         self.scoring_area = [self.score_deck.pop() for _ in range(5)]
 
+    def loop(self):
+        """
+        Main loop
+        """
+        self.render()
+        while True:
+            i = self.get_input()
+            self.render()
+
+    def render(self):
+        os.system('clear')
+        print(self.scoring_area)
+        print(self.trader_market)
+
+    def get_input(self):
+        return input('Enter your command: ')
+
+
+class CursesGame(Game):
+    WINDOW_HEIGHT = 51
+    WINDOW_WIDTH = 251
+
+    def __init__(self, id, players=None, shuffle_players=True):
+        super().__init__(id, players, shuffle_players)
         # Instantiate players
         # Give players their starting hands (Acquire(YY), Convert(2))
         # Assign one to go first
@@ -55,10 +78,8 @@ class Game:
         self.win.clear()
 
         # Initialize colors corresponding to spice colors
-        curses.init_pair(1, curses.COLOR_YELLOW, curses.COLOR_WHITE)
-        curses.init_pair(2, curses.COLOR_RED, curses.COLOR_WHITE)
-        curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_WHITE)
-        curses.init_pair(4, curses.COLOR_BLACK, curses.COLOR_WHITE)
+        for color, pair in colors.COLOR_PAIR_DICT.iteritems()
+            curses.init_pair(pair, color, colors.BACKGROUND_COLOR)
 
     def __del__(self):
         self.win.keypad(0)
@@ -69,31 +90,22 @@ class Game:
     def initialize_players(self):
         pass
 
-    def loop(self):
-        """
-        Main loop
-        """
-        self.render('')
-        while True:
-            i = self.get_input()
-            self.render(i)
-
     def get_input(self):
         self.win.move(self.WINDOW_HEIGHT - 1, 0)
         ret = self.win.getstr()
         self.win.deleteln()
         return ret
 
-    def render(self, i):
+    def render(self):
         self.win.clear()
-        self.win.addstr(0, 0, "\u25a3", curses.color_pair(1))
-        self.win.addstr(0, 1, "\u25a3", curses.color_pair(2))
-        self.win.addstr(0, 2, "\u25a3", curses.color_pair(3))
-        self.win.addstr(0, 3, "\u25a3", curses.color_pair(4))
-        self.win.addstr(1, 0, i)
+        self.win.border()
+        self.win.addstr(1, 1, "\u25a3", curses.color_pair(1))
+        self.win.addstr(1, 2, "\u25a3", curses.color_pair(2))
+        self.win.addstr(1, 3, "\u25a3", curses.color_pair(3))
+        self.win.addstr(1, 4, "\u25a3", curses.color_pair(4))
         self.win.refresh()
 
 
 if __name__ == "__main__":
-    game = Game(0)
+    game = CursesGame(0)
     game.loop()
