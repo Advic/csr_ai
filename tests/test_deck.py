@@ -20,7 +20,7 @@ class TestActionArea(unittest.TestCase):
         assert len(self.actionarea.faceup) == deck.ActionArea.FACEUP_ACTION_SIZE
 
     def test_claiming_cards(self):
-        """Test that claiming cards works"""
+        """Test that claiming cards by paying spice works"""
         faceup_org = copy.copy(self.actionarea.faceup)
         assert self.actionarea.claim([spice.SpiceSet(1, 0, 0, 0)]) == faceup_org[1]
         assert self.actionarea.faceup[0:-1] == faceup_org[0:1] + faceup_org[2:deck.ActionArea.FACEUP_ACTION_SIZE]
