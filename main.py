@@ -96,7 +96,7 @@ class CursesGame(Game):
 
     def render_market(self):
         """Render the central "Marketplace" area (i.e. the draftable face-up cards)"""
-        for i_trade, trade_card in enumerate(self.trader_market):
+        for i_trade, trade_card in enumerate(self.trader_deck):
             self.win.addstr()
 
     def render(self):
