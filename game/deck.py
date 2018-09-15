@@ -9,7 +9,18 @@ from .card import ScoreCard, AcquireCard, TradeCard, UpgradeCard
 class Deck(metaclass=abc.ABCMeta):
     def __init__(self):
         # List of face-down cards
-        self._deck = None
+        self._deck = []
+
+        # List of face-up cards
+        self._faceup = []
+
+    @property
+    def deck(self):
+        return self._deck
+
+    @property
+    def faceup(self):
+        return self._faceup
 
     @abc.abstractclassmethod
     def claim(self, payment):
@@ -81,13 +92,8 @@ class ActionArea(Deck):
             # Upgrade Card
             UpgradeCard(3),
         ]
-        shuffle(self._deck)
-        self._faceup = [FaceUpActionCard(self._deck.pop()) for _ in range(self.FACEUP_ACTION_SIZE)]
-
-    @property
-    def faceup(self):
-        """Returns the faceup cards"""
-        return self._faceup
+        shuffle(self.deck)
+        self._faceup = [FaceUpActionCard(self.deck.pop()) for _ in range(self.FACEUP_ACTION_SIZE)]
 
     def claim(self, payment):
         """
@@ -164,5 +170,5 @@ class ScoreArea(Deck):
             ScoreCard(spice.SpiceSet(1, 1, 3, 1), 18),
             ScoreCard(spice.SpiceSet(1, 1, 1, 3), 20),
         ]
-        shuffle(self._deck)
-        self.scoring_area = [self._deck.pop() for _ in range(5)]
+        shuffle(self.deck)
+        self.scoring_area = [self.deck.pop() for _ in range(5)]
