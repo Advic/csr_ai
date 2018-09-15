@@ -110,6 +110,7 @@ class CursesGame(Game):
 
 
 if __name__ == "__main__":
+    # noinspection PyBroadException
     try:
         game = CursesGame(0, 4)
         game.loop()
