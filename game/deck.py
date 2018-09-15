@@ -130,6 +130,8 @@ class ActionArea(Deck):
 
 
 class ScoreArea(Deck):
+    FACEUP_SCORE_SIZE = 5
+
     def __init__(self):
         super().__init__()
         self._deck = [
@@ -171,4 +173,4 @@ class ScoreArea(Deck):
             ScoreCard(spice.SpiceSet(1, 1, 1, 3), 20),
         ]
         shuffle(self.deck)
-        self.scoring_area = [self.deck.pop() for _ in range(5)]
+        self.scoring_area = [self.deck.pop() for _ in range(self.FACEUP_SCORE_SIZE)]
