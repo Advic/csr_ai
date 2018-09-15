@@ -2,32 +2,29 @@
 # -*- coding: utf-8 -*-
 import curses
 import os
-from collections import Iterable
 
 from game import colors
 from game import deck
 
 
 class Game:
-    def __init__(self, id, players=None, shuffle_players=True):
+    def __init__(self, id, nplayers, shuffle_players=True):
         """
         WIP
 
         Args:
             id: unique integer of game name
-            players:
+            nplayers: number of playyers
             shuffle_players:
         """
 
-        if isinstance(players, Iterable):
-            pass
-        elif isinstance(players, int):
-            pass
+        # if isinstance(nplayers, Iterable):
+        #     pass
+        # elif isinstance(nplayers, int):
+        #     pass
 
         self.trader_deck = deck.ActionArea()
-
-        # todo: gold and silver coins for 0th and 1st element of scoring_area
-        self.score_deck = deck.ScoreArea()
+        self.score_deck = deck.ScoreArea(nplayers)
 
     def loop(self):
         """
@@ -56,8 +53,8 @@ class CursesGame(Game):
     SCORING_AREA_X = 1
     SCORING_AREA_Y = 1
 
-    def __init__(self, id, players=None, shuffle_players=True):
-        super().__init__(id, players, shuffle_players)
+    def __init__(self, id, nplayers=None, shuffle_players=True):
+        super().__init__(id, nplayers, shuffle_players)
         # Instantiate players
         # Give players their starting hands (Acquire(YY), Convert(2))
         # Assign one to go first
@@ -112,5 +109,5 @@ class CursesGame(Game):
 
 
 if __name__ == "__main__":
-    game = CursesGame(0)
+    game = CursesGame(0, 4)
     game.loop()
