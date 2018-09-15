@@ -3,7 +3,6 @@
 import curses
 import os
 from collections import Iterable
-from random import shuffle
 
 from . import colors
 from . import deck
@@ -25,10 +24,10 @@ class Game:
         elif isinstance(players, int):
             pass
 
-        self.trader_deck = deck.TradeDeck()
+        self.trader_deck = deck.ActionArea()
 
         # todo: gold and silver coins for 0th and 1st element of scoring_area
-        self.score_deck = deck.ScoreDeck()
+        self.score_deck = deck.ScoreArea()
 
     def loop(self):
         """
