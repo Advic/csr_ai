@@ -9,12 +9,12 @@ from game import deck
 
 
 class Game:
-    def __init__(self, id, nplayers, shuffle_players=True):
+    def __init__(self, game_id, nplayers, shuffle_players=True):
         """
         WIP
 
         Args:
-            id: unique integer of game name
+            game_id: unique integer of game name
             nplayers: number of playyers
             shuffle_players:
         """
@@ -54,8 +54,8 @@ class CursesGame(Game):
     SCORING_AREA_X = 1
     SCORING_AREA_Y = 1
 
-    def __init__(self, id, nplayers=None, shuffle_players=True):
-        super().__init__(id, nplayers, shuffle_players)
+    def __init__(self, game_id, nplayers=None, shuffle_players=True):
+        super().__init__(game_id, nplayers, shuffle_players)
         # Instantiate players
         # Give players their starting hands (Acquire(YY), Convert(2))
         # Assign one to go first
