@@ -32,7 +32,6 @@ class Game:
             self.render()
 
     def render(self):
-        os.system('clear')
         print(self.score_deck)
         print(self.trader_deck)
 
