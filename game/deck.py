@@ -100,17 +100,17 @@ class ActionArea(Deck):
                 Spice is put onto cards in the order of payment (0th payment on card 0, 1st payment on card 1, etc.)
 
 
-        Returns:
+        Returns: FaceUpActionCard, the claimed card
 
         """
         if len(payment) > len(self.faceup) - 1:
             raise exceptions.InvalidPlayerAction("Received overpayment of length %d", payment)
-        if not all([len(spiceset) == 1 for spiceset in payment]):
+        if not all([spiceset.size == 1 for spiceset in payment]):
             raise exceptions.InvalidPlayerAction("Payment SpiceSets must all have a value of 1")
 
         # Add payments to faceup cards
         for faceup, spiceset in zip(self._faceup, payment):
-            faceup.spiceset += payment
+            faceup.spiceset += spiceset
 
         claimed_card = self._faceup[len(payment)]
         del self._faceup[len(payment)]
