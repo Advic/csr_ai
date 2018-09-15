@@ -112,10 +112,10 @@ class ActionArea(Deck):
         for faceup, spiceset in zip(self._faceup, payment):
             faceup.spiceset += payment
 
-        ret = self._faceup[len(payment)]
+        claimed_card = self._faceup[len(payment)]
         del self._faceup[len(payment)]
         self._faceup.append(FaceUpActionCard(self._deck.pop()))
-        return ret
+        return claimed_card
 
 
 class ScoreArea(Deck):
