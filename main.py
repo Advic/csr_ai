@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import curses
 import os
+import traceback
 
 from game import colors
 from game import deck
@@ -37,8 +38,8 @@ class Game:
 
     def render(self):
         os.system('clear')
-        print(self.scoring_area)
-        print(self.trader_market)
+        print(self.score_deck)
+        print(self.trader_deck)
 
     def get_input(self):
         return input('Enter your command: ')
@@ -75,7 +76,7 @@ class CursesGame(Game):
         self.win.clear()
 
         # Initialize colors corresponding to spice colors
-        for color, pair in colors.COLOR_PAIR_DICT.iteritems():
+        for color, pair in colors.COLOR_PAIR_DICT.i():
             curses.init_pair(pair, color, colors.BACKGROUND_COLOR)
 
     def __del__(self):
@@ -109,5 +110,8 @@ class CursesGame(Game):
 
 
 if __name__ == "__main__":
-    game = CursesGame(0, 4)
-    game.loop()
+    try:
+        game = CursesGame(0, 4)
+        game.loop()
+    except:
+        print(traceback.format_exc())

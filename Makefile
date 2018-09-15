@@ -10,7 +10,7 @@ test: venv
 
 .PHONY: game
 game: 
-	. venv/bin/activate; python -m game.main
+	. venv/bin/activate; python -m main
 
 clean:
 	rm -rf venv
